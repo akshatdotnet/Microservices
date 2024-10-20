@@ -16,6 +16,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D4CFC109-3B8B-499D-AAAC-984C4B0957F6}"
 	ProjectSection(SolutionItems) = preProject
 		InitialSetup.txt = InitialSetup.txt
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthService.API", "AuthServices\AuthService.API.csproj", "{B352FBBB-F9F6-430F-AC10-BACF3E367F43}"
@@ -38,7 +39,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthService.Infrastructure"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthService.Application", "AuthService.Application\AuthService.Application.csproj", "{0F8ADDC5-86DC-4145-9C4D-A90B27877169}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileService.Application", "FileService.Application\FileService.Application.csproj", "{168BF6A6-4E56-4517-AE9C-E3DF7C310BAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileService.Application", "FileService.Application\FileService.Application.csproj", "{168BF6A6-4E56-4517-AE9C-E3DF7C310BAD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
