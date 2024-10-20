@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using FileService.Application.Interfaces;
 
-namespace FileService.Application
+namespace FileService.Application.Repository
 {
     public class FileService : IFileService
     {
         private readonly ILeadRepository _leadRepository;
         private readonly IFileStorage _fileStorage;
         private readonly ILogger<FileService> _logger;
-        
+
         public FileService(ILeadRepository leadRepository, IFileStorage fileStorage, ILogger<FileService> logger)
         {
             _leadRepository = leadRepository ?? throw new ArgumentNullException(nameof(leadRepository));
@@ -101,7 +101,7 @@ namespace FileService.Application
                 throw new ApplicationException($"An error occurred while retrieving the lead for email: {email}", ex);
             }
 
-            
+
         }
 
         // Delete lead by email
@@ -124,7 +124,7 @@ namespace FileService.Application
                 // Delete associated file from storage
                 _logger.LogInformation($"Deleting file for lead with email: {email}");
                 //await _fileStorage.DeleteFileAsync(lead.Document);
-                 _fileStorage.DeleteFile(lead.Document);
+                _fileStorage.DeleteFile(lead.Document);
 
                 // Delete lead from the repository
                 _logger.LogInformation($"Deleting lead with email: {email}");
@@ -136,8 +136,8 @@ namespace FileService.Application
             {
                 _logger.LogError(ex, $"An error occurred while deleting the lead for email: {email}");
                 throw new ApplicationException($"An error occurred while deleting the lead for email: {email}", ex);
-            }            
+            }
         }
-        
+
     }
 }

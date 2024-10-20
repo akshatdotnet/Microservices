@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AuthService.Domain.Entities;
-using AuthService.Infrastructure;
+using AuthService.Infrastructure.Service;
 
 
-namespace AuthService.Application
+namespace AuthService.Application.Repository
 {
     public class AuthService : IAuthService
     {

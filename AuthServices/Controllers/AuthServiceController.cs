@@ -6,7 +6,7 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using AuthService.API.Models;
-using AuthService.Application;
+using AuthService.Application.Repository;
 
 namespace AuthServices.Controllers
 {
@@ -14,62 +14,61 @@ namespace AuthServices.Controllers
     [ApiController]
     public class AuthServiceController : ControllerBase
     {
+        #region private variable
         private readonly IConfiguration _configuration;
         private readonly IAuthService _authService;
+        private readonly ILogger<AuthServiceController> _logger;
+        #endregion
 
+        #region constructor 
+        // Constructor for injecting dependencies (configuration and authentication service)
         public AuthServiceController(IConfiguration configuration, IAuthService authService)
         {
             _configuration = configuration;
             _authService = authService;
 
         }
+        #endregion
+
+        #region Login Authentication
+
+        /// <summary>
+        /// Authenticates the user and generates a JWT token upon successful login.
+        /// </summary>
+        /// <param name="model">The login model containing the username and password.</param>
+        /// <returns>JWT token if authentication is successful; otherwise, returns Unauthorized status.</returns>
 
         // POST: api/auth/login
         [HttpPost("login")]
         public async Task<IActionResult> login([FromBody] LoginModel model)
         {
+            // Validate the request model
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Invalid login data.");
+            }
+
             try
             {
+                // Authenticate the user via the AuthService
                 var token = await _authService.LoginAsync(model.Username, model.Password);
                 return Ok(new { Token = token });
+
             }
             catch (UnauthorizedAccessException)
             {
-                return Unauthorized("Invalid credentials.");
+                // Return Unauthorized if credentials are invalid
+                return Unauthorized("Invalid credentials.");                
+            }
+            catch (Exception ex)
+            {
+                // Log the exception and return an internal server error
+                // (you can use a logger here if you have logging enabled)
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error: {ex.Message}");
             }
         }
+        #endregion
 
-        //// POST: api/auth/login
-        //[HttpPost("login")]
-        //public IActionResult Login([FromBody] LoginModel model)
-        //{
-        //    // Mock user validation
-        //    if (model.Username != "testuser" || model.Password != "password")
-        //    {
-        //        return Unauthorized();
-        //    }
-
-        //    // Generate JWT
-        //    var tokenHandler = new JwtSecurityTokenHandler();
-        //    var key = Encoding.ASCII.GetBytes(_configuration["JwtSettings:SecretKey"]);
-        //    var tokenDescriptor = new SecurityTokenDescriptor
-        //    {
-        //        Subject = new ClaimsIdentity(new[] {
-        //            new Claim(ClaimTypes.Name, model.Username)
-        //        }),
-        //        Expires = DateTime.UtcNow.AddHours(1),
-        //        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-        //        Issuer = _configuration["JwtSettings:Issuer"],
-        //        Audience = _configuration["JwtSettings:Audience"]
-        //    };
-
-        //    var token = tokenHandler.CreateToken(tokenDescriptor);
-        //    var tokenString = tokenHandler.WriteToken(token);
-
-        //    return Ok(new { Token = tokenString });
-        //}
-
-        
 
     }
 }

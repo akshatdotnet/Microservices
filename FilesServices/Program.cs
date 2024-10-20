@@ -18,7 +18,7 @@ builder.Services.AddScoped<IFileStorage>(provider => new LocalFileStorage(fileSt
 // Add services to the container.
 builder.Services.AddControllers();
 
-builder.Services.AddScoped<IFileService, FileService.Application.FileService>();
+builder.Services.AddScoped<IFileService, FileService.Application.Repository.FileService>();
 builder.Services.AddSingleton<ILeadRepository, FileService.Infrastructure.LeadRepository>();
 
 builder.Services.AddCors(options =>

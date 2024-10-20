@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AuthService.Application
+namespace AuthService.Application.Repository
 {
     public interface IAuthService
     {

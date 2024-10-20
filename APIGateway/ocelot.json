@@ -1,28 +1,31 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/api/auth/{everything}",
-      "DownstreamScheme": "http",
+      "DownstreamPathTemplate": "/api/AuthService/{everything}",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5001
+          "Port": 7117
         }
       ],
-      "UpstreamPathTemplate": "/auth/{everything}",
-      "UpstreamHttpMethod": [ "POST", "GET" ]
+      "UpstreamPathTemplate": "/AuthService/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
     },
     {
-      "DownstreamPathTemplate": "/api/fileupload/{everything}",
-      "DownstreamScheme": "http",
+      "DownstreamPathTemplate": "/api/Documents/{everything}",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5002
+          "Port": 7164
         }
       ],
-      "UpstreamPathTemplate": "/fileupload/{everything}",
-      "UpstreamHttpMethod": [ "POST", "GET" ]
+      "UpstreamPathTemplate": "/Documents/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE" ]
     }
-  ]
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:7200"
+  }
 }

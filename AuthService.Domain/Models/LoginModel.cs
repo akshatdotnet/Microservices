@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AuthService.Domain
+namespace AuthService.Domain.Models
 {
     public class LoginModel
     {
