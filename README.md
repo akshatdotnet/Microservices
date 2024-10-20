@@ -1,21 +1,30 @@
 # Microservices
 
-Design :
+Microservices Architecture Overview
 
-MicroservicesSolution/
-├── src/
-│   ├── ApiGateway
-│   ├── AuthService/
-│   │   ├── AuthService.Application/      # Application Layer
-│   │   ├── AuthService.Domain/           # Domain Layer
-│   │   ├── AuthService.Infrastructure/   # Infrastructure Layer
-│   │   ├── AuthService.API/              # Presentation Layer (API)
-│   ├── FilesService/
-│   │   ├── FileService.Application/      # Application Layer
-│   │   ├── FileService.Domain/           # Domain Layer
-│   │   ├── FileService.Infrastructure/   # Infrastructure Layer
-│   │   ├── FileService.API/              # Presentation Layer (API)
-│   │   ├── FilesUpload Storage             
-|   |       └── file-uploads/  # For storing uploaded files locally or Blob Storage
-├── docker-compose.yml                    # Docker Compose for microservices orchestration
-└── kubernetes/                           # Kubernetes configuration for microservices
++--------------------------------------------------------+
+|                    API Gateway                         |
+|  - Routing, Load Balancing                             |
+|  - Authentication, Authorization (JWT, OAuth)          |
+|  - Rate Limiting, Caching                              |
++--------------------------------------------------------+
+                     |
+                     |
++---------------------+---------------------+-------------------+
+|                     |                     |                   |
+|                     |                     |                   |
+|      +--------------v-------------+    +---v---------------+  +---v---------------+
+|      |  Auth Service               |    |  User Service      |  |  File Service    |
+|      |  (Handles Authentication)   |    |  (Manages Users)   |  |  (Manages Files) |
+|      +----------------------------+    +--------------------+  +------------------+
+|          |                        |        |                    |
+|  +-------v--------+         +------v------+ |                    |
+|  |  Token Service |         | Auth DB     | |                    |
+|  +----------------+         +-------------+ |                    |
++------------------------------------------------+                  |
+                     |                             |                |
+                     |                             |                |
+              +------v------+                +-----v------+   +-----v------+
+              |  Logging    |                |   User DB   |   | File DB   |
+              |  Service    |                +-------------+   +-----------+
+              +-------------+
