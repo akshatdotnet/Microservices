@@ -2,6 +2,10 @@
 AuthService  : https://localhost:7117/swagger/index.html
 FilesService : https://localhost:7164/swagger/index.html
 
+API Layer: Handles HTTP requests and responses, interacting with the Application layer.
+Application Layer: Contains the services for managing file uploads, validations, and CRUD operations.
+Infrastructure Layer: Manages file storage (local or external), interactions with repositories, and external services.
+Domain Layer: Focuses on the business entities like LeadDetails.
 
 
 Architect Design :
@@ -23,12 +27,7 @@ MicroservicesSolution/
 ├── docker-compose.yml                    # Docker Compose for microservices orchestration
 └── kubernetes/                           # Kubernetes configuration for microservices
 
-
-
-
-
-
-
+========================================================================================
 
 +--------------------------------------------------------+
 |                    API Gateway                         |
@@ -56,3 +55,43 @@ MicroservicesSolution/
               |  Logging    |                |   User DB   |   | File DB   |
               |  Service    |                +-------------+   +-----------+
               +-------------+
+=========================================================================================
+
+
+1. API Gateway:
+The ApiGateway serves as the entry point for all client requests. It routes the traffic to the correct microservice, 
+such as the AuthService for authentication requests or the FileService for file uploads.
+It can also handle cross-cutting concerns like authentication, logging, rate limiting, and caching.
+
+2. RESTful Communication:
+Each service exposes a REST API. For example:
+The AuthService.API might have endpoints for login, token generation, and validation.
+The FileService.API would have endpoints for uploading, retrieving, and managing files.
+Services communicate with each other through HTTP requests. For example, if FileService needs to validate a user's identity, 
+it can send a request to AuthService to validate the token.
+
+3. Message Brokers (Optional):
+For asynchronous communication, you can use message brokers like RabbitMQ, Azure Service Bus, or Kafka.
+For example, after a file is uploaded, the FileService can publish an event to a message queue. Other services, 
+like a notification service, can listen for that event and send a notification to the user.
+
+4. Shared Database vs. Database per Service:
+In microservices, it’s recommended to follow the Database per Service pattern. Each service manages its own data. 
+For example, AuthService might have a user database, while FileService manages file metadata.
+If there’s a need to share data, one service can query another service’s API rather than directly accessing its database.
+
+5. OAuth/JWT Authentication:
+The AuthService is responsible for issuing JWT tokens after successful authentication.
+Other services (like FileService) validate these tokens on each request to ensure that the user is authorized.
+ApiGateway can also handle authentication, validating tokens for incoming requests before routing them to the relevant service.
+
+6. Service Discovery (if needed):
+When deploying on Kubernetes, you can use Service Discovery to let microservices find each other dynamically.
+In local development, hard-coded URLs (e.g., via environment variables) or DNS can be used.
+
+7. Kubernetes for Orchestration:
+Kubernetes configurations are stored in the kubernetes/ directory to handle deployment, scaling, and service discovery.
+Each microservice has its own Kubernetes service and deployment configuration.
+By using API Gateway for client interactions and REST APIs or message brokers for internal communication, your microservices 
+can communicate efficiently. Docker and Kubernetes ensure that these services are scalable and manageable in production.
+

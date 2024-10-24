@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontEnd", "FrontEnd", "{636876AB-8CF3-4AA8-BDA9-B386C31665B3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{B989CDAF-B299-46D3-BEF7-18EB9D4247DE}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateways", "ApiGateways", "{B989CDAF-B299-46D3-BEF7-18EB9D4247DE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{02A66B75-C612-4261-94B3-DD2FC44FC9E9}"
 EndProject
@@ -48,6 +48,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "crud-dotnet-api", "FrontEnd\crud-dotnet-api\crud-dotnet-api\crud-dotnet-api.csproj", "{F26EE668-7D6C-4365-989E-61E744ECDE4D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentAPI", "FrontEnd\PaymentAPI\PaymentAPI\PaymentAPI.csproj", "{72DE0328-0C06-4058-9804-0F5B7292E22C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{F58A2028-2F34-419B-ACB9-A857EB3F34B6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApps", "WebApps", "{6220637C-C0A9-4C61-B48B-96CC58BA09BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
